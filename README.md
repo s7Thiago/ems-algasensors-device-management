@@ -1,1 +1,1 @@
-# ems-algasensors-temperarute-management
+# ems-algasensors-temperature-management
