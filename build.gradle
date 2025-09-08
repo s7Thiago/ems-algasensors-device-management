@@ -32,8 +32,12 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation("io.hypersistence:hypersistence-tsid:2.1.4")
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation("org.apache.commons:commons-lang3:3.17.0")
+	implementation("org.springframework.boot:spring-boot-devtools:3.5.5")
+	runtimeOnly 'com.h2database:h2'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
