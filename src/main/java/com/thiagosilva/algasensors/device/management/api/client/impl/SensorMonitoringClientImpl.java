@@ -9,7 +9,7 @@ import com.thiagosilva.algasensors.device.management.api.model.SensorMonitoringO
 
 import io.hypersistence.tsid.TSID;
 
-@Component
+// @Component Comentado pois não é mais usado devido a criação do RestClientConfig para gerar o client dinamicamente
 public class SensorMonitoringClientImpl implements SensorMonitoringClient {
 
     private final RestClient client;
