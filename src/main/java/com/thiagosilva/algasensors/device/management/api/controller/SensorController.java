@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.thiagosilva.algasensors.device.management.api.client.SensorMonitoringClient;
+import com.thiagosilva.algasensors.device.management.api.model.SensorDetailOutput;
 import com.thiagosilva.algasensors.device.management.api.model.SensorInput;
 import com.thiagosilva.algasensors.device.management.api.model.SensorOutput;
 import com.thiagosilva.algasensors.device.management.common.IdGenerator;
@@ -35,6 +36,23 @@ public class SensorController {
 
     private final SensorRepository repository;
     private final SensorMonitoringClient sensorMonitoringClient;
+
+    @GetMapping("{sensorId}/detail")
+    public SensorDetailOutput getOneWithDetail(@PathVariable(name = "sensorId") TSID sensorId) {
+
+        Sensor sensor = repository
+                .findById(new SensorId(sensorId))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Sensor %s não encontrado", sensorId.toString())));
+
+        var details = sensorMonitoringClient.getDetail(sensorId);
+        var sensorDto = toDTO(sensor);
+
+        return SensorDetailOutput.builder()
+                .sensor(sensorDto)
+                .monitoring(details)
+                .build();
+    }
 
     // ! Para possibilitar a passagem desse param do tipo TSD, foi necessário criar
     // ! um conversor para o spring (não para o jackson ou para o JPA)
